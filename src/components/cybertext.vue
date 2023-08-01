@@ -1,26 +1,27 @@
 <template>
-    <div class="loader">
-        <div data-glitch="极简版抖音" class="glitch">极简版抖音</div>
-    </div>
+    <div :data-glitch="props.msg" class="glitch" :style="{ fontSize: props.size }">{{ props.msg }}</div>
 </template>
 
 <script setup lang="ts">
 // import { ref } from "vue";
-
+const props = defineProps({
+    msg: String,
+    size: String
+})
 
 </script>
 
 <style  scoped lang="scss">
 // https://uiverse.io/andrew-demchenk0/silent-earwig-10
 .glitch {
+    display: inline-block;
     position: relative;
-    font-size: 72px;
     font-weight: 700;
     line-height: 1.2;
     color: #fff;
     letter-spacing: 5px;
     z-index: 1;
-    animation: shift 1s ease-in-out infinite alternate;
+    animation: shift 2s ease-in-out infinite alternate;
 }
 
 .glitch:before,

@@ -1,0 +1,39 @@
+@import "md-editor-v3/lib/preview.css";
+
+@mixin css-vars($isDark) {
+  --md-color: var(--el-text-color-regular) !important;
+  --md-hover-color: var(--el-text-color-secondary) !important;
+  --md-bk-color: var(--el-color-primary-light-9) !important;
+  --md-bk-color-outstand: #{if($isDark, #111, #f6f6f6)} !important;
+  --md-bk-hover-color: #{if($isDark, #1b1a1a, #f5f7fa)} !important;
+  --md-border-color: #{if($isDark, #2d2d2d, #e6e6e6)} !important;
+  --md-border-hover-color: #{if($isDark, #636262, #b9b9b9)} !important;
+  --md-border-active-color: #{if($isDark, #777, #999)} !important;
+  --md-modal-mask: #00000073 !important;
+  --md-scrollbar-bg-color: #{if($isDark, #0f0f0f, #e2e2e2)} !important;
+  --md-scrollbar-thumb-color: #{if($isDark, #2d2d2d, #0000004d)} !important;
+  --md-scrollbar-thumb-hover-color: #{if($isDark, #3a3a3a, #00000059)} !important;
+  --md-scrollbar-thumb-active-color: #{if($isDark, #3a3a3a, #00000061)} !important;
+  .default-theme img {
+    border: 0 !important;
+  }
+}
+
+.md-editor {
+  @include css-vars(false);
+}
+.md-editor-dark {
+  @include css-vars(true);
+}
+
+.md-editor-catalog {
+  .md-editor-catalog-link > span {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  .md-editor-catalog-active > span {
+    color: rgba(255, 255, 255, 1) !important;
+    &::after {
+      content: "←🤡";
+    }
+  }
+}
