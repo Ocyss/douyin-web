@@ -14,7 +14,7 @@ const catalog = inject<Ref<Catalog[]>>("catalog")
 const scrollElementRef = inject<Ref<HTMLElement | undefined>>("scrollElement")
 const editorId = "douyin"
 const offsetTop = 20
-const curKey = ref(0)
+const curKey = ref(1)
 interface Catalog {
     text: string,
     level: number,

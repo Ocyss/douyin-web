@@ -1,16 +1,15 @@
 <template>
     <el-container class="layout-container">
         <el-aside width="200px">
-            <el-scrollbar>
-                <div class="logo">
-                    <cybertextVue class="logo-text" msg="抖音" size="43px" />
-                </div>
-                <slot name="LeftSidebar"></slot>
-            </el-scrollbar>
+            <div class="logo">
+                <cybertextVue class="logo-text" msg="抖音" size="43px" />
+            </div>
+            <slot name="LeftSidebar"></slot>
+            <aboutVue />
         </el-aside>
         <el-container>
             <el-header style="text-align: right; font-size: 19px">
-                <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
+                <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" @select="handleSelect"
                     :ellipsis="false" text-color="rgba(255,255,255,0.6)" active-text-color="rgba(255,255,255,1)">
                     <div class="flex-grow" />
                     <el-menu-item index="home">首页</el-menu-item>
@@ -40,6 +39,7 @@
 import cybertextVue from '@/components/cybertext.vue';
 import { useRouter, useRoute } from 'vue-router';
 import { ElMain } from 'element-plus';
+import aboutVue from '@/components/about.vue';
 const router = useRouter()
 const route = useRoute()
 
@@ -89,15 +89,30 @@ onMounted(() => {
         padding: 10px;
         display: flex;
         justify-content: flex-start;
-        align-items: flex-start;
+        // align-items: flex-start;
+        align-items: center;
         color: var(--el-text-color-primary);
         background: var(--el-color-primary);
         // background-color: #111111;
         flex-direction: column;
 
+        :deep(.el-scrollbar__bar) {
+            z-index: 9999;
+        }
+
         >div {
             width: 100%;
         }
+    }
+
+    .el-aside,
+    .el-main {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 
     .el-menu {
@@ -108,15 +123,6 @@ onMounted(() => {
         padding: 0;
         background-color: var(--el-color-primary-light-9);
 
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        -ms-overflow-style: none;
-        /* IE and Edge */
-        scrollbar-width: none;
-
-        /* Firefox */
         .filling {
             height: 300px;
         }
@@ -146,4 +152,5 @@ onMounted(() => {
 
         font-family: "iconfont" !important;
     }
-}</style>
+}
+</style>
