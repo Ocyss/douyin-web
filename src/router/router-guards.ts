@@ -1,7 +1,7 @@
 import { type Router } from "vue-router";
 
 export function febore(router: Router) {
-  router.beforeEach(async (to, from, next) => {
+  router.beforeEach(async (to, _, next) => {
     if (!to.name) {
       //判断有没有路由
       next({ name: "err404" });
@@ -10,7 +10,7 @@ export function febore(router: Router) {
     }
   });
 
-  router.afterEach(async (to, from, failure) => {});
+  // router.afterEach(async (to, from, failure) => {});
 
   router.onError((error) => {
     console.log(error, "路由错误");
