@@ -8,28 +8,13 @@
             <aboutVue />
         </el-aside>
         <el-container>
-            <el-header style="text-align: right; font-size: 19px">
-                <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" @select="handleSelect"
-                    :ellipsis="false" text-color="rgba(255,255,255,0.6)" active-text-color="rgba(255,255,255,1)">
-                    <div class="flex-grow" />
-                    <el-menu-item index="home">首页</el-menu-item>
-                    <el-sub-menu index="docs">
-                        <template #title>文档</template>
-                        <el-menu-item index="docs-project">项目</el-menu-item>
-                        <el-menu-item index="docs-model">模型</el-menu-item>
-                        <el-menu-item index="docs-api">Api</el-menu-item>
-                    </el-sub-menu>
-                    <el-sub-menu index="about">
-                        <template #title>关于</template>
-                        <el-menu-item index="about-team">团队</el-menu-item>
-                        <el-menu-item index="about-ocyss">Ocyss(队长)</el-menu-item>
-                    </el-sub-menu>
-                </el-menu>
+            <el-header>
+                <menuVue />
             </el-header>
             <el-main ref="mainRef">
 
                 <slot></slot>
-                <div class="filling"></div>
+
             </el-main>
         </el-container>
     </el-container>
@@ -37,13 +22,11 @@
 
 <script lang="ts" setup>
 import cybertextVue from '@/components/cybertext.vue';
-import { useRouter, useRoute } from 'vue-router';
+
 import { ElMain } from 'element-plus';
 import aboutVue from '@/components/about.vue';
-const router = useRouter()
-const route = useRoute()
+import menuVue from "./menu.vue"
 
-const activeIndex = computed(() => route.name as string)
 
 const mainRef = ref<InstanceType<typeof ElMain> | undefined>(void 0)
 const scrollElementRef = ref<HTMLElement | undefined>(void 0)
@@ -51,9 +34,7 @@ const catalog = ref([])
 provide("scrollElement", scrollElementRef)
 provide("catalog", catalog)
 
-function handleSelect(key: string, _: string[]) {
-    router.push({ name: key })
-}
+
 
 onMounted(() => {
     scrollElementRef.value = mainRef.value?.$el
@@ -62,27 +43,27 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.flex-grow {
-    flex-grow: 1;
-}
-
 .layout-container {
     height: 100vh;
 
     .el-header {
-        position: relative;
-        background-color: var(--el-color-primary-light-5);
-        color: var(--el-text-color-primary);
         padding: 0;
-        --el-menu-bg-color: var(--el-color-primary-light-5);
-        --el-menu-text-color: rgba(255, 255, 255, 0.6);
-        --el-menu-active-color: rgb(255, 255, 255);
-        --el-menu-hover-text-color: rgb(255, 255, 255);
-        --el-menu-hover-bg-color: var(--el-color-primary-light-5);
-        --el-menu-item-font-size: 16px;
+        text-align: right;
+        --el-header-height: 6vh;
 
-
-
+        .el-menu {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            background-color: var(--el-color-primary-light-5);
+            color: var(--el-text-color-primary);
+            --el-menu-bg-color: var(--el-color-primary-light-5);
+            --el-menu-text-color: rgba(255, 255, 255, 0.6);
+            --el-menu-active-color: rgb(255, 255, 255);
+            --el-menu-hover-text-color: rgb(255, 255, 255);
+            --el-menu-hover-bg-color: var(--el-color-primary-light-5);
+            --el-menu-item-font-size: 18px;
+        }
     }
 
     .el-aside {
@@ -122,10 +103,6 @@ onMounted(() => {
     .el-main {
         padding: 0;
         background-color: var(--el-color-primary-light-9);
-
-        .filling {
-            height: 300px;
-        }
     }
 
     .toolbar {

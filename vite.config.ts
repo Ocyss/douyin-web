@@ -48,11 +48,13 @@ export default defineConfig({
       "@": pathSrc,
     },
   },
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `@use "@/style.scss" as *;`,
-  //     },
-  //   },
-  // },
+  server: {
+    host: "0.0.0.0",
+    proxy: {
+      "/douyin": {
+        target: "http://localhost:23724",
+        // rewrite: (path) => path.replace(/^\/demo/, "/demo"),
+      },
+    },
+  },
 });

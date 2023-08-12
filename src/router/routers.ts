@@ -11,6 +11,30 @@ export const home: Array<RouteRecordRaw> = [
       LeftSidebar: homeVue,
     },
   },
+  {
+    path: "/follow",
+    name: "follow",
+    components: {
+      default: () => import("@/pages/home/follow/index.vue"),
+      LeftSidebar: homeVue,
+    },
+  },
+  {
+    path: "/friend",
+    name: "friend",
+    components: {
+      default: () => import("@/pages/home/friend/index.vue"),
+      LeftSidebar: homeVue,
+    },
+  },
+  {
+    path: "/my",
+    name: "my",
+    components: {
+      default: () => import("@/pages/home/my/index.vue"),
+      LeftSidebar: homeVue,
+    },
+  },
 ];
 
 export const docs: Array<RouteRecordRaw> = [

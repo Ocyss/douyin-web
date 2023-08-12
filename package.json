@@ -15,8 +15,10 @@
     "element-plus": "^2.3.8",
     "md-editor-v3": "^4.2.2",
     "sass": "^1.64.2",
+    "swiper": "^10.1.0",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "xgplayer": "^3.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.4.7",

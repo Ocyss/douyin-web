@@ -10,6 +10,7 @@ declare module 'vue' {
     About: typeof import('./components/about.vue')['default']
     Cybertext: typeof import('./components/cybertext.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElHeader: typeof import('element-plus/es')['ElHeader']
@@ -19,5 +20,6 @@ declare module 'vue' {
     MdPreview: typeof import('./components/mdPreview.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Video: typeof import('./components/video.vue')['default']
   }
 }

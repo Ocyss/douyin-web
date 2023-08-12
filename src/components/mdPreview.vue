@@ -1,6 +1,7 @@
 <template>
     <MdPreview :modelValue="props.text" theme="dark" :showCodeRowNumber="true" :noKatex="true" :noMermaid="true"
         @onGetCatalog="onGetCatalog" :mdHeadingId="mdHeadingId" />
+    <div class="filling"></div>
 </template>
 
 <script lang="ts" setup>
@@ -27,4 +28,8 @@ function onGetCatalog(list: Catalog[]) {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.filling {
+    height: 400px;
+}
+</style>
