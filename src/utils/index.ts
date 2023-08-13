@@ -31,3 +31,27 @@ export const getRelativeTop = (
 export function mdHeadingId(text: string, level: number, index: number) {
   return `${text}/${level}-${index}`;
 }
+
+export function getToken() {
+  return getCookie("token");
+}
+export function getUserId() {
+  return getCookie("uid");
+}
+export function getCookie(name: string) {
+  return document.cookie.match(`[;\s+]?${name}=([^;]*)`)?.pop();
+}
+
+export function setCookie(name: string, val: any) {
+  var exp = new Date();
+  exp.setDate(exp.getDate() + 30);
+  document.cookie = `${name}=${val};expires=${exp.toUTCString()}`;
+}
+
+export function delCookie(name: string) {
+  var exp = new Date();
+  exp.setTime(exp.getTime() - 1);
+  var cval = getCookie(name);
+  if (cval != null)
+    document.cookie = name + "=" + cval + ";expires=" + exp.toUTCString();
+}

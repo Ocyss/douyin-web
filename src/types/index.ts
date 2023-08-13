@@ -1,6 +1,6 @@
 import type PresetPlayer from "xgplayer";
 
-export type Resp<T> = Promise<
+export type Resp<T = {}> = Promise<
   {
     errmsg?: string[];
     status_code: number;

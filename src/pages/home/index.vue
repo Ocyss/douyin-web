@@ -40,7 +40,7 @@ const onSlideChange = (e: SwiperType) => {
   if (!data.value) {
     return;
   }
-  console.log(e);
+  // console.log(e);
 
   if (data.value.length - e.activeIndex < 3) {
     api.video.feed().then((res) => {
@@ -63,7 +63,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .swiper {
   width: 100%;
   height: 94vh;

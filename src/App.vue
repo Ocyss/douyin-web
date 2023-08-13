@@ -8,8 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import layoutVue from "@/layout/index.vue"
-
+import layoutVue from "@/layout/index.vue";
 </script>
 
 <style lang="scss">

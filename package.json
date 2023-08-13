@@ -16,7 +16,9 @@
     "md-editor-v3": "^4.2.2",
     "sass": "^1.64.2",
     "swiper": "^10.1.0",
+    "undraw-ui": "^0.9.6",
     "vue": "^3.3.4",
+    "vue-cookies": "^1.8.3",
     "vue-router": "^4.2.4",
     "xgplayer": "^3.0.7"
   },

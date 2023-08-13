@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Reqs } from "@/types";
 import { ElMessage } from "element-plus";
 
 let request = axios.create({
@@ -31,7 +30,7 @@ request.interceptors.response.use(
 
 declare module "axios" {
   interface AxiosInstance {
-    (config: AxiosRequestConfig): Reqs;
+    (config: AxiosRequestConfig): any;
   }
 }
 

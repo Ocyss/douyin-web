@@ -26,9 +26,15 @@ dependencies:
   swiper:
     specifier: ^10.1.0
     version: 10.1.0
+  undraw-ui:
+    specifier: ^0.9.6
+    version: 0.9.6
   vue:
     specifier: ^3.3.4
     version: 3.3.4
+  vue-cookies:
+    specifier: ^1.8.3
+    version: 1.8.3
   vue-router:
     specifier: ^4.2.4
     version: 4.2.4(vue@3.3.4)
@@ -1650,6 +1656,15 @@ packages:
     resolution: {integrity: sha512-RsPyTbqORDNDxqAdQPQBpgqhWle1VcTSou/FraClYlHf6TZnQcGslpLcAphNR+sQW4q5lLWLbOsRlh9j24baQg==}
     dev: true
 
+  /undraw-ui@0.9.6:
+    resolution: {integrity: sha512-pgbCisXb0fLJmk8lQ/iOi/HYO2Ri/aVF5mRKbMr0gR67MUkLBcDi10y2fbfcbb4N9LJJdiTj6iUiSzABkooGGw==}
+    dependencies:
+      element-plus: 2.3.8(vue@3.3.4)
+      vue: 3.3.4
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
+
   /unimport@3.1.3:
     resolution: {integrity: sha512-up4TE2yA+nMyyErGTjbYGVw95MriGa2hVRXQ3/JRp7984cwwqULcnBjHaovVpsO8tZc2j0fvgGu9yiBKOyxvYw==}
     dependencies:
@@ -1778,6 +1793,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-cookies@1.8.3:
+    resolution: {integrity: sha512-VBRsyRMVdahBgFfh389TMHPmDdr4URDJNMk4FKSCfuNITs7+jitBDhwyL4RJd3WUsfOYNNjPAkfbehyH9AFuoA==}
+    dev: false
 
   /vue-demi@0.14.5(vue@3.3.4):
     resolution: {integrity: sha512-o9NUVpl/YlsGJ7t+xuqJKx8EBGf1quRhCiT6D/J0pfwmk9zUwYkC7yrF4SZCe6fETvSM3UNL2edcbYrSyc4QHA==}
