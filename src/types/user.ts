@@ -10,4 +10,6 @@ export type User = {
   total_favorited: number;
   favorite_count: number;
   is_follow: boolean;
+  created_at: string;
+  updated_at: string;
 };

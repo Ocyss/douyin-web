@@ -1,75 +1,9 @@
 <template>
-  <swiper
-    direction="vertical"
-    :slidesPerView="1"
-    :spaceBetween="30"
-    :mousewheel="true"
-    :pagination="{
-      clickable: true,
-    }"
-    :keyboard="{
-      enabled: true,
-    }"
-    :shortSwipes="false"
-    :simulateTouch="false"
-    :modules="modules"
-    @slideChange="onSlideChange"
-    v-if="data"
-  >
-    <swiper-slide class="swiper-item" v-for="item in data" :key="item.id">
-      <videoVue :data="item" :players="players" />
-    </swiper-slide>
-  </swiper>
+  <videoListVue type="all"></videoListVue>
 </template>
 
 <script lang="ts" setup>
-import api from "@/api";
-import { Video, Players } from "@/types";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Swiper as SwiperType } from "swiper/types";
-import { Mousewheel, Keyboard } from "swiper/modules";
-
-import videoVue from "@/components/video.vue";
-import "swiper/css";
-
-const data = ref<Video[] | undefined>(void 0);
-const players: Players = {};
-const modules = [Mousewheel, Keyboard];
-
-const onSlideChange = (e: SwiperType) => {
-  if (!data.value) {
-    return;
-  }
-  // console.log(e);
-
-  if (data.value.length - e.activeIndex < 3) {
-    api.video.feed().then((res) => {
-      data.value?.push(...res.video_list);
-    });
-  }
-
-  const prePlayer = players[data.value[e.previousIndex].id];
-  prePlayer.pause();
-
-  const cur = data.value[e.activeIndex];
-  const player = players[cur.id];
-  player.play();
-};
-
-onMounted(() => {
-  api.video.feed().then((res) => {
-    data.value = res.video_list;
-  });
-});
+import videoListVue from "@/components/videoList.vue";
 </script>
 
-<style lang="scss">
-.swiper {
-  width: 100%;
-  height: 94vh;
-}
-
-.swiper-slide {
-  // height: 94vh;
-}
-</style>
+<style lang="scss" scoped></style>

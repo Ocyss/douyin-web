@@ -21,7 +21,7 @@
       <lord-icon src="https://cdn.lordicon.com/lxotnbfa.json" v-bind="icon" />
       <span>投稿</span>
     </el-menu-item>
-    <el-menu-item index="/type/m">
+    <el-menu-item index="/type/y">
       <lord-icon src="https://cdn.lordicon.com/pgbyoxin.json" v-bind="icon" />
       <span>音乐</span>
     </el-menu-item>

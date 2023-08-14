@@ -35,6 +35,14 @@ export const home: Array<RouteRecordRaw> = [
       LeftSidebar: homeVue,
     },
   },
+  {
+    path: "/type/:name",
+    name: "type",
+    components: {
+      default: () => import("@/pages/home/type/index.vue"),
+      LeftSidebar: homeVue,
+    },
+  },
 ];
 
 export const docs: Array<RouteRecordRaw> = [

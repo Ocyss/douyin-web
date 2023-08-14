@@ -78,3 +78,15 @@ export function info(user_id?: string): Resp<{ user: User }> {
     },
   });
 }
+
+export function RelationAction(to_user_id: string, action_type: 1 | 2): Resp {
+  return requests({
+    method: "post",
+    url: "relation/action/",
+    data: {
+      token: getToken(),
+      to_user_id,
+      action_type,
+    },
+  });
+}

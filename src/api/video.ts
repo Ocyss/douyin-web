@@ -1,13 +1,21 @@
 import requests from "@/utils/requests";
-import { Resp, Video } from "@/types";
+import { Resp, Video, Comment } from "@/types";
 import { getToken } from "@/utils";
 
-export function feed(): Resp<{
+export function feed(
+  _type = "",
+  repeat = false
+): Resp<{
   video_list: Video[];
 }> {
   return requests({
     method: "get",
     url: "feed",
+    params: {
+      token: getToken(),
+      type: _type,
+      repeat,
+    },
   });
 }
 
@@ -25,11 +33,12 @@ export function FavoriteAction(video_id: string, action_type: 1 | 2): Resp {
 }
 
 export function CommentAction(
+  // 1 发布 2 取消
   video_id: string,
   action_type: 1 | 2,
   comment_text?: string,
   comment_id?: string
-): Resp {
+): Resp<{ comment: Comment }> {
   return requests({
     method: "post",
     url: "comment/action/",
@@ -39,6 +48,18 @@ export function CommentAction(
       comment_text,
       comment_id,
       token: getToken(),
+    },
+  });
+}
+
+export function CommentList(video_id: string): Resp<{
+  comment_list: Comment[];
+}> {
+  return requests({
+    method: "get",
+    url: "comment/list/",
+    params: {
+      video_id,
     },
   });
 }

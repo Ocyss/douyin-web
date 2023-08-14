@@ -101,7 +101,7 @@ import api from "@/api";
 const isLogin = ref(false);
 const router = useRouter();
 const route = useRoute();
-const info = ref<User | undefined>(void 0);
+const info = inject<Ref<User>>("userInfo");
 const activeIndex = computed(() => {
   if (["follow", "friend", "my", "type"].indexOf(route.name as string) > -1) {
     return "home";
@@ -121,11 +121,13 @@ const formLabelAlign = reactive({
 function handleSelect(key: string, _: string[]) {
   router.push({ name: key });
 }
+
 function logout() {
   delCookie("uid");
   delCookie("token");
   location.reload();
 }
+
 function login() {
   const f = () => {
     centerDialogVisible.value = false;
@@ -144,11 +146,6 @@ function login() {
 
 onMounted(() => {
   isLogin.value = getToken() != undefined;
-  if (isLogin.value) {
-    api.user.info().then((res) => {
-      info.value = res.user;
-    });
-  }
 });
 </script>
 
