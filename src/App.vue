@@ -29,12 +29,12 @@ onMounted(() => {
 body {
   padding: 0;
   margin: 0;
-  -webkit-user-select: none;
-  /*webkit浏览器*/
-  -moz-user-select: none;
-  /*火狐*/
-  -ms-user-select: none;
-  /*IE10*/
+}
+* {
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
 }
 </style>

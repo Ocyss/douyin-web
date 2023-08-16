@@ -29,6 +29,7 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     MdPreview: typeof import('./components/mdPreview.vue')['default']
+    PositionBox: typeof import('./components/positionBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Userinfo: typeof import('./components/userinfo.vue')['default']

@@ -140,9 +140,10 @@ onUnmounted(() => {
 }
 
 .chat {
-  width: 70%;
+  // width: max-content;
   height: 100%;
   position: relative;
+  flex: 1;
   .message {
     height: 79%;
     box-sizing: border-box;
@@ -178,7 +179,9 @@ onUnmounted(() => {
 
 .friend {
   width: 30%;
+  max-width: 400px;
   height: 100%;
+
   background: var(--el-color-primary-light-7);
 }
 .main {

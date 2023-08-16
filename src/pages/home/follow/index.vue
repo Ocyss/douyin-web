@@ -22,9 +22,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .videoList {
-  > div {
-    display: inline-block;
-    margin: 10px;
-  }
+  --el-color-primary: #cd3521;
 }
 </style>

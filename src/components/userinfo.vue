@@ -81,11 +81,4 @@ onMounted(() => {
     }
   }
 }
-
-.videoList {
-  > div {
-    display: inline-block;
-    margin: 10px;
-  }
-}
 </style>
