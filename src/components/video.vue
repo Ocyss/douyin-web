@@ -2,7 +2,7 @@
   <div class="video" ref="videoRef">
     <div class="positionBox">
       <div class="item avatar">
-        <el-avatar :src="data.author.avatar" :size="55" />
+        <el-avatar :src="data.author.avatar" :size="55" @click="getUserList" />
         <span class="follow" v-if="!is_follow" @click="RelationAction">+</span>
       </div>
       <div
@@ -40,8 +40,30 @@
       <div class="title">{{ data.title }}</div>
     </div>
   </div>
-  <el-drawer v-model="drawer" :with-header="false" size="40%" class="comment">
+  <el-drawer
+    v-model="commentDrawer"
+    :with-header="false"
+    size="40%"
+    class="comment"
+    @open="() => drawer(true)"
+    @close="() => drawer(false)"
+  >
     <u-comment :config="config" @submit="submit" relative-time></u-comment>
+  </el-drawer>
+  <el-drawer
+    v-model="userDrawer"
+    :with-header="false"
+    size="40%"
+    class="user"
+    @open="() => drawer(true)"
+    @close="() => drawer(false)"
+  >
+    <userinfo
+      :info="props.data.author"
+      :favorite-list="favoriteList"
+      :publish-list="publishList"
+      :follow="is_follow"
+    />
   </el-drawer>
 </template>
 
@@ -53,7 +75,12 @@ import "xgplayer/dist/index.min.css";
 import emoji from "@/utils/emoji";
 import { CommentApi, ConfigApi, SubmitParamApi, dayjs } from "undraw-ui";
 import { ElMessage } from "element-plus";
-const drawer = ref(false);
+
+import userinfo from "@/components/userinfo.vue";
+const favoriteList = ref<Video[]>([]);
+const publishList = ref<Video[]>([]);
+const commentDrawer = ref(false);
+const userDrawer = ref(false);
 const icon = {
   trigger: "loop-on-hover",
   colors: "primary:#ffffff",
@@ -63,6 +90,7 @@ const icon = {
 const props = defineProps<{
   data: Video;
   players: Players;
+  drawer: (arg0: boolean) => void;
 }>();
 
 const favorite_count = ref(0);
@@ -74,7 +102,7 @@ const info = inject<Ref<User>>("userInfo");
 
 function RelationAction() {
   api.user
-    .RelationAction(props.data.author.id, is_follow.value ? 2 : 1)
+    .RelationAction(props.data.author.id as string, is_follow.value ? 2 : 1)
     .then((res) => {
       if (res.status_code == 0) {
         is_follow.value = !is_follow.value;
@@ -112,7 +140,7 @@ const submit = ({ content, finish }: SubmitParamApi) => {
     if (res.status_code == 0) {
       const comment: CommentApi = {
         id: res.comment.id,
-        uid: res.comment.user.id,
+        uid: res.comment.user.id as string,
         content: content,
         likes: 0,
         createTime: dayjs().subtract(0, "seconds").toString(),
@@ -150,9 +178,22 @@ function getComment() {
       });
     }
   });
-  drawer.value = true;
+  commentDrawer.value = true;
 }
 
+function getUserList() {
+  api.video.publish(props.data.author.id).then((res) => {
+    if (res.status_code == 0) {
+      publishList.value = res.video_list;
+    }
+  });
+  api.video.favorite(props.data.author.id).then((res) => {
+    if (res.status_code == 0) {
+      favoriteList.value = res.video_list;
+    }
+  });
+  userDrawer.value = true;
+}
 onMounted(() => {
   props.players[props.data.id] = new Player({
     el: videoRef.value,
@@ -181,7 +222,7 @@ onMounted(() => {
   comment_count.value = props.data.comment_count;
   is_favorite.value = props.data.is_favorite;
   if (info?.value) {
-    config.user.id = info.value.id;
+    config.user.id = info.value.id as string;
     config.user.username = info.value.name;
     config.user.avatar = info.value.avatar;
   }

@@ -19,6 +19,7 @@ onMounted(() => {
   if (getToken()) {
     api.user.info().then((res) => {
       info.value = res.user;
+      info.value.id = info.value.user_id;
     });
   }
 });

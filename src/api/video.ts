@@ -63,3 +63,41 @@ export function CommentList(video_id: string): Resp<{
     },
   });
 }
+
+export function publish(user_id = ""): Resp<{
+  video_list: Video[];
+}> {
+  return requests({
+    method: "get",
+    url: "publish/list/",
+    params: {
+      token: getToken(),
+      user_id,
+    },
+  });
+}
+
+export function publishFollow(): Resp<{
+  video_list: Video[];
+}> {
+  return requests({
+    method: "get",
+    url: "publish/follow/",
+    params: {
+      token: getToken(),
+    },
+  });
+}
+
+export function favorite(user_id = ""): Resp<{
+  video_list: Video[];
+}> {
+  return requests({
+    method: "get",
+    url: "favorite/list/",
+    params: {
+      token: getToken(),
+      user_id,
+    },
+  });
+}

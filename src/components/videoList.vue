@@ -3,7 +3,7 @@
     direction="vertical"
     :slidesPerView="1"
     :spaceBetween="30"
-    :mousewheel="true"
+    :mousewheel="mousewheel"
     :pagination="{
       clickable: true,
     }"
@@ -17,7 +17,13 @@
     v-if="data.length > 0"
   >
     <swiper-slide class="swiper-item" v-for="item in data" :key="item.id">
-      <videoVue :data="item" :players="players" />
+      <videoVue
+        :data="item"
+        :players="players"
+        :drawer="(v:boolean)=>{
+        mousewheel = !v
+      }"
+      />
     </swiper-slide>
   </swiper>
   <div v-else><el-empty :image-size="200" /></div>
@@ -31,7 +37,7 @@ import { Swiper as SwiperType } from "swiper/types";
 import { Mousewheel, Keyboard } from "swiper/modules";
 import videoVue from "@/components/video.vue";
 import "swiper/css";
-
+const mousewheel = ref(true);
 const props = defineProps({
   type: {
     type: String,
@@ -52,11 +58,13 @@ const onSlideChange = (e: SwiperType) => {
   if (!data.value) {
     return;
   }
-  // console.log(e);
-
   if (data.value.length - e.activeIndex < 3) {
     api.video.feed(props.type, props.repeat).then((res) => {
-      data.value?.push(...res.video_list);
+      data.value?.push(
+        ...res.video_list.filter((item) => {
+          return players[item.id] == undefined;
+        })
+      );
     });
   }
 
