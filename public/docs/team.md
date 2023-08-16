@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="/static/team.png" alt="Logo" width="230" height="230">
+    <img src="https://qiu-blog.oss-cn-hangzhou.aliyuncs.com/Q/douyin/team.png" alt="Logo" width="230" height="230">
   <h1 align="center">ByteHunters</h1>
   <p align="center">
     “字节猎人”
