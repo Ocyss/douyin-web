@@ -6,17 +6,25 @@
 
 <script lang="ts" setup>
 import api from "@/api";
-import { Video } from "@/types";
+import { User, Video } from "@/types";
 import videoInfoVue from "@/components/videoInfo.vue";
-
+const loginDialog = inject<Ref<boolean>>("loginDialog");
 const videos = ref<Video[]>();
+const info = inject<Ref<User>>("userInfo");
 
 onMounted(() => {
-  api.video.publishFollow().then((res) => {
-    if (res.status_code == 0) {
-      videos.value = res.video_list;
+  if (info?.value) {
+    api.video.publishFollow().then((res) => {
+      if (res.status_code == 0) {
+        videos.value = res.video_list;
+      }
+    });
+  } else {
+    ElMessage.error("请先登录");
+    if (loginDialog) {
+      loginDialog.value = true;
     }
-  });
+  }
 });
 </script>
 

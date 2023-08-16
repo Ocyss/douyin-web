@@ -56,6 +56,8 @@ const content = ref("");
 const user = ref<User>();
 let messageT: number;
 const info = inject<Ref<User>>("userInfo");
+const loginDialog = inject<Ref<boolean>>("loginDialog");
+
 let pre_msg_time = 0;
 function switchItem(u: User, index: number) {
   user.value = u;
@@ -102,11 +104,18 @@ function send() {
     });
 }
 onMounted(() => {
-  api.user.RelationFriendList().then((res) => {
-    if (res.status_code == 0) {
-      friendList.value = res.user_list;
+  if (info?.value) {
+    api.user.RelationFriendList().then((res) => {
+      if (res.status_code == 0) {
+        friendList.value = res.user_list;
+      }
+    });
+  } else {
+    ElMessage.error("请先登录");
+    if (loginDialog) {
+      loginDialog.value = true;
     }
-  });
+  }
 });
 
 onUnmounted(() => {

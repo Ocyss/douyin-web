@@ -9,7 +9,12 @@
     </el-aside>
     <el-container>
       <el-header>
-        <menuVue />
+        <menuVue
+          :dialog="loginDialog"
+          :set-dialog="(v:boolean)=>{
+          loginDialog = v
+        }"
+        />
       </el-header>
       <el-main ref="mainRef">
         <slot></slot>
@@ -25,11 +30,13 @@ import { ElMain } from "element-plus";
 import aboutVue from "@/components/about.vue";
 import menuVue from "./menu.vue";
 
+const loginDialog = ref(false);
 const mainRef = ref<InstanceType<typeof ElMain> | undefined>(void 0);
 const scrollElementRef = ref<HTMLElement | undefined>(void 0);
 const catalog = ref([]);
 provide("scrollElement", scrollElementRef);
 provide("catalog", catalog);
+provide("loginDialog", loginDialog);
 
 onMounted(() => {
   scrollElementRef.value = mainRef.value?.$el;

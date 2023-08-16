@@ -65,6 +65,8 @@ import { CommentApi, ConfigApi, SubmitParamApi, dayjs } from "undraw-ui";
 import { ElMessage } from "element-plus";
 import emoji from "@/utils/emoji";
 
+const loginDialog = inject<Ref<boolean>>("loginDialog");
+
 const props = defineProps<{
   data: Video;
   drawer: (arg0: boolean) => void;
@@ -98,25 +100,40 @@ const icon = {
   colors: "primary:#ffffff",
   target: ".item",
 };
+
 function RelationAction() {
-  api.user
-    .RelationAction(props.data.author.id as string, is_follow.value ? 2 : 1)
-    .then((res) => {
-      if (res.status_code == 0) {
-        is_follow.value = !is_follow.value;
-        ElMessage.success(is_follow.value ? "关注成功" : "取关成功");
-      }
-    });
+  if (info?.value) {
+    api.user
+      .RelationAction(props.data.author.id as string, is_follow.value ? 2 : 1)
+      .then((res) => {
+        if (res.status_code == 0) {
+          is_follow.value = !is_follow.value;
+          ElMessage.success(is_follow.value ? "关注成功" : "取关成功");
+        }
+      });
+  } else {
+    ElMessage.error("请先登录");
+    if (loginDialog) {
+      loginDialog.value = true;
+    }
+  }
 }
 
 function FavoriteAction() {
-  api.video
-    .FavoriteAction(props.data.id, is_favorite.value ? 2 : 1)
-    .then((res) => {
-      if (res.status_code == 0) {
-        is_favorite.value = !is_favorite.value;
-      }
-    });
+  if (info?.value) {
+    api.video
+      .FavoriteAction(props.data.id, is_favorite.value ? 2 : 1)
+      .then((res) => {
+        if (res.status_code == 0) {
+          is_favorite.value = !is_favorite.value;
+        }
+      });
+  } else {
+    ElMessage.error("请先登录");
+    if (loginDialog) {
+      loginDialog.value = true;
+    }
+  }
 }
 
 function getComment() {
@@ -158,26 +175,33 @@ function getUserList() {
 
 // 提交评论事件
 const submit = ({ content, finish }: SubmitParamApi) => {
-  api.video.CommentAction(props.data.id, 1, content).then((res) => {
-    if (res.status_code == 0) {
-      const comment: CommentApi = {
-        id: res.comment.id,
-        uid: res.comment.user.id as string,
-        content: content,
-        likes: 0,
-        createTime: dayjs().subtract(0, "seconds").toString(),
-        // @ts-ignore：不显示等级,主页
-        user: {
-          username: config.user.username,
-          avatar: config.user.avatar,
-        },
-      };
-      console.log(dayjs().subtract(0, "seconds").toString());
+  if (info?.value) {
+    api.video.CommentAction(props.data.id, 1, content).then((res) => {
+      if (res.status_code == 0) {
+        const comment: CommentApi = {
+          id: res.comment.id,
+          uid: res.comment.user.id as string,
+          content: content,
+          likes: 0,
+          createTime: dayjs().subtract(0, "seconds").toString(),
+          // @ts-ignore：不显示等级,主页
+          user: {
+            username: config.user.username,
+            avatar: config.user.avatar,
+          },
+        };
+        console.log(dayjs().subtract(0, "seconds").toString());
 
-      finish(comment);
-      ElMessage.success("发布成功!");
+        finish(comment);
+        ElMessage.success("发布成功!");
+      }
+    });
+  } else {
+    ElMessage.error("请先登录");
+    if (loginDialog) {
+      loginDialog.value = true;
     }
-  });
+  }
 };
 
 onMounted(() => {

@@ -98,6 +98,19 @@ import { getToken, delCookie } from "@/utils";
 import { User } from "@/types";
 import api from "@/api";
 
+const props = defineProps<{
+  dialog: boolean;
+  setDialog: (v: boolean) => void;
+}>();
+
+const centerDialogVisible = computed({
+  get() {
+    return props.dialog;
+  },
+  set(v: boolean) {
+    props.setDialog(v);
+  },
+});
 const isLogin = ref(false);
 const router = useRouter();
 const route = useRoute();
@@ -109,7 +122,6 @@ const activeIndex = computed(() => {
   return route.name as string;
 });
 
-const centerDialogVisible = ref(false);
 const activeName = ref("login");
 
 const formLabelAlign = reactive({
